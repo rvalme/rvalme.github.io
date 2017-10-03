@@ -5,12 +5,23 @@ class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("index.html", title="My title")
 
+class WebSocketHandler(tornado.websocket.WebSocketHandler):
+    def open(self):
+        pass
+
+    def on_message(self, message):
+        self.write_message("Your message was: " + message)
+
+    def on_close(self):
+        pass
+
 def make_app():
     settings = {'debug': True }
     handlers = [
-		(r"/", MainHandler),
-		(r"/index.html", MainHandler),
-		(r'/(.*)', tornado.web.StaticFileHandler, {'path': 'static'}),
+        (r"/", MainHandler),
+        (r"/websocket", WebSocketHandler),
+        (r"/index.html", MainHandler),
+        (r'/(.*)', tornado.web.StaticFileHandler, {'path': 'static'}),
     ]
     return tornado.web.Application(handlers, **settings)
 

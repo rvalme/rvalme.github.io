@@ -3,9 +3,11 @@
 	<head>
 		<script src="js/fingerprint.js"></script>
 	</head>
-    <body>
+    <body onload="userTrack();">
         Hello Rom
         </br>
         <p id="user_agent"></p>
+        <strong>Message to Send:</strong>&nbsp;<input type="text" id="msg" maxlength="25" />
+        &nbsp;<input type="button" onclick="sendMsg();" value="Send" />
     </body>
 </html>
