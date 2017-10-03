@@ -1,6 +1,13 @@
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
+import tornado.httpserver
+import tornado.ioloop
+import tornado.options
+
+import os.path
+from tornado.options import define, options
+define("port", default=5000, help="run on the given port", type=int)
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -19,8 +26,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 def make_app():
     settings = {'debug': True }
     handlers = [
-        (r"/", MainHandler),
-        (r"/websocket", WebSocketHandler),
+        (r"/", MainHandler), (r"/websocket", WebSocketHandler),
         (r"/index.html", MainHandler),
         (r'/(.*)', tornado.web.StaticFileHandler, {'path': 'static'}),
     ]
@@ -29,5 +35,6 @@ def make_app():
 
 if __name__ == "__main__":
     app = make_app()
-    app.listen(8888)
+    http_server = tornado.httpserver.HTTPServer(app)
+    http_server.listen(options.port)
     tornado.ioloop.IOLoop.instance().start()

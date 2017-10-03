@@ -5,7 +5,7 @@ function sendMsg() {
     ws.send(document.getElementById('msg').value);
 }
 function userTrack() {
-        ws = new WebSocket("ws://localhost:8888/websocket");
+        ws = new WebSocket("ws://localhost:5000/websocket");
         var x = "User-agent header sent: " + navigator.userAgent;
         document.getElementById("user_agent").innerHTML = x;
 
