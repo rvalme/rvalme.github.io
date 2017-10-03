@@ -4,7 +4,7 @@ import tornado.websocket
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render("index.html", title="My title")
+        self.render("source/index.html", title="My title")
 
 class WebSocketHandler(tornado.websocket.WebSocketHandler):
     def open(self):
